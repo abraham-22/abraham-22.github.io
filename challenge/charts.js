@@ -60,14 +60,14 @@ function buildCharts(sample) {
   d3.json("samples.json").then((data) => {
     // Deliverable 1: 3. Create a variable that holds the samples array. 
     var samples = data.samples
-
+    var metadata = data.metadata;
     // Deliverable 1: 4. Create a variable that filters the samples for the object with the desired sample number.
     // array.filter(function(currentValue, index, arr), thisValue)
     var filteredSamples = samples.filter(sampleObj => sampleObj.id == sample);
     console.log(filteredSamples);
 
     // Deliverable 3: 1. Create a variable that filters the metadata array for the object with the desired sample number.
-    var filteredMetadata = data.metadata.filter(sampleObj => sampleObj.id == sample);
+    var filteredMetadata = metadata.filter(sampleObj => sampleObj.id == sample);
     console.log(filteredMetadata);
 
     // Deliverable 1: 5. Create a variable that holds the first sample in the array.
@@ -83,7 +83,7 @@ function buildCharts(sample) {
     var sample_values = firstSample.sample_values;
 
     // Deliverable 3: 3. Create a variable that holds the washing frequency.
-    var wfreq = filteredMetadata.wfreq;
+    var washFreq = firstMetadata.wfreq;
 
     // Deliverable 1: 7. Create the yticks for the bar chart.
     // Hint: Get the the top 10 otu_ids and map them in descending order 
@@ -135,10 +135,10 @@ function buildCharts(sample) {
 
     // Deliverable 3: 4. Create the trace for the gauge chart.
     var trace1 = {
-      domain: { x: [0, 1], y: [0, 1] },
+      
       type: "indicator",
       mode: "gauge+number",
-      value: 2,
+      value: washFreq,
       title: 'Belly Button Washing Frequency<br> Scrubs per Week',
       gauge: {
         axis: { range: [null, 10], tickcolor: "darkblue" },
@@ -159,7 +159,7 @@ function buildCharts(sample) {
 
     // Deliverable 3: 5. Create the layout for the gauge chart.
     var layout = {
-      margin: { t: 20, b: 20, l: 20, r: 30, }
+      width: 600, height: 450, margin: {t: 0, b: 0}
 
     };
     // Deliverable 3: 6. Use Plotly to plot the gauge data and layout.
